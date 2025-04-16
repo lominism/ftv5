@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Table,
   TableBody,
@@ -7,35 +9,36 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-const products = [
-  {
-    id: "NKBSMUS9W",
-    name: "Macbook Pro 2024",
-    description: "Macbook Laptop featuring M3 chips - black color",
-    inventory: 4,
-    branch: "Orbital Labs",
-    image: "/images/macbook.webp",
-  },
-  {
-    id: "XPS13PLAT",
-    name: "Dell XPS 13",
-    description: "Dell XPS 13 Laptop with Intel i7 processor",
-    inventory: 10,
-    branch: "Orbital Labs",
-    image: "/images/xps13.webp",
-  },
-  {
-    id: "IPADPRO11",
-    name: "iPad Pro 11",
-    description: "Apple iPad Pro 11-inch with M2 chip",
-    inventory: 7,
-    branch: "CloudSync",
-    image: "/images/ipad11.jpg",
-  },
-];
+import React, { useState } from "react";
+import productsData from "@/data/products.json";
 
 export default function Items() {
+  const [products, setProducts] = useState(productsData);
+  const [sortConfig, setSortConfig] = useState<{
+    key: string;
+    direction: "asc" | "desc";
+  } | null>(null);
+
+  const handleSort = (key: keyof (typeof products)[0]) => {
+    let direction: "asc" | "desc" = "asc";
+    if (
+      sortConfig &&
+      sortConfig.key === key &&
+      sortConfig.direction === "asc"
+    ) {
+      direction = "desc";
+    }
+
+    const sortedProducts = [...products].sort((a, b) => {
+      if (a[key] < b[key]) return direction === "asc" ? -1 : 1;
+      if (a[key] > b[key]) return direction === "asc" ? 1 : -1;
+      return 0;
+    });
+
+    setProducts(sortedProducts);
+    setSortConfig({ key, direction });
+  };
+
   return (
     <div>
       <Table>
@@ -43,11 +46,46 @@ export default function Items() {
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">Image</TableHead>
-            <TableHead className="w-[100px]">ID</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Description</TableHead>
-            <TableHead className="text-left">Inventory #</TableHead>
-            <TableHead>Branch Location</TableHead>
+            <TableHead
+              className="w-[100px] cursor-pointer"
+              onClick={() => handleSort("id")}
+            >
+              ID{" "}
+              {sortConfig?.key === "id" &&
+                (sortConfig.direction === "asc" ? "↑" : "↓")}
+            </TableHead>
+            <TableHead
+              className="cursor-pointer"
+              onClick={() => handleSort("name")}
+            >
+              Name{" "}
+              {sortConfig?.key === "name" &&
+                (sortConfig.direction === "asc" ? "↑" : "↓")}
+            </TableHead>
+            <TableHead
+              className="cursor-pointer"
+              onClick={() => handleSort("description")}
+            >
+              Description{" "}
+              {sortConfig?.key === "description" &&
+                (sortConfig.direction === "asc" ? "↑" : "↓")}
+            </TableHead>
+            <TableHead
+              className="text-left cursor-pointer"
+              onClick={() => handleSort("inventory")}
+            >
+              Inventory #{" "}
+              {sortConfig?.key === "inventory" &&
+                (sortConfig.direction === "asc" ? "↑" : "↓")}
+            </TableHead>
+            <TableHead
+              className="cursor-pointer"
+              onClick={() => handleSort("branch")}
+            >
+              Branch Location{" "}
+              {sortConfig?.key === "branch" &&
+                (sortConfig.direction === "asc" ? "↑" : "↓")}
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

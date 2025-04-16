@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Table,
   TableBody,
@@ -7,82 +9,74 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import React from "react";
-
-const companies = [
-  {
-    id: 100001,
-    name: "Microsoft",
-    address: "1 Microsoft Way, Redmond, WA",
-    branches: 12,
-  },
-  {
-    id: 100002,
-    name: "Apple Inc.",
-    address: "1 Apple Park Way, Cupertino, CA",
-    branches: 9,
-  },
-  {
-    id: 100003,
-    name: "Google",
-    address: "1600 Amphitheatre Parkway, Mountain View, CA",
-    branches: 7,
-  },
-  {
-    id: 100004,
-    name: "Meta Platforms",
-    address: "1 Hacker Way, Menlo Park, CA",
-    branches: 5,
-  },
-  {
-    id: 100005,
-    name: "Wontech",
-    address: "139 Pan Road, Bangkok",
-    branches: 4,
-  },
-  {
-    id: 100006,
-    name: "ByteForge",
-    address: "16 Wireless Road, Bangkok",
-    branches: 6,
-  },
-  {
-    id: 100007,
-    name: "Zenbyte",
-    address: "311 Ladprao Road, Bangkok",
-    branches: 3,
-  },
-  {
-    id: 100008,
-    name: "DataHive",
-    address: "54 Phahonyothin Road, Bangkok",
-    branches: 2,
-  },
-  {
-    id: 100009,
-    name: "CloudSync",
-    address: "65 Rama 9 Road, Bangkok",
-    branches: 8,
-  },
-  {
-    id: 100010,
-    name: "TekNova",
-    address: "29 Ekkamai Road, Bangkok",
-    branches: 1,
-  },
-];
+import React, { useState } from "react";
+import companiesData from "@/data/companies.json";
 
 export default function Branches() {
+  const [companies, setCompanies] = useState(companiesData);
+  const [sortConfig, setSortConfig] = useState<{
+    key: string;
+    direction: "asc" | "desc";
+  } | null>(null);
+
+  const handleSort = (key: keyof (typeof companies)[0]) => {
+    let direction: "asc" | "desc" = "asc";
+    if (
+      sortConfig &&
+      sortConfig.key === key &&
+      sortConfig.direction === "asc"
+    ) {
+      direction = "desc";
+    }
+
+    const sortedCompanies = [...companies].sort((a, b) => {
+      if (a[key] < b[key]) return direction === "asc" ? -1 : 1;
+      if (a[key] > b[key]) return direction === "asc" ? 1 : -1;
+      return 0;
+    });
+
+    setCompanies(sortedCompanies);
+    setSortConfig({ key, direction });
+  };
+
   return (
     <main className="m-4">
       <Table>
         <TableCaption>A list of your branches.</TableCaption>
         <TableHeader>
           <TableRow className="bg-white dark:bg-gray-800 z-10">
-            <TableHead className="w-[100px]">ID</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Address</TableHead>
-            <TableHead className="text-left"># of Branches</TableHead>
+            <TableHead
+              className="w-[100px] cursor-pointer"
+              onClick={() => handleSort("id")}
+            >
+              ID{" "}
+              {sortConfig?.key === "id" &&
+                (sortConfig.direction === "asc" ? "↑" : "↓")}
+            </TableHead>
+            <TableHead
+              className="cursor-pointer"
+              onClick={() => handleSort("name")}
+            >
+              Name{" "}
+              {sortConfig?.key === "name" &&
+                (sortConfig.direction === "asc" ? "↑" : "↓")}
+            </TableHead>
+            <TableHead
+              className="cursor-pointer"
+              onClick={() => handleSort("address")}
+            >
+              Address{" "}
+              {sortConfig?.key === "address" &&
+                (sortConfig.direction === "asc" ? "↑" : "↓")}
+            </TableHead>
+            <TableHead
+              className="text-left cursor-pointer"
+              onClick={() => handleSort("branches")}
+            >
+              # of Branches{" "}
+              {sortConfig?.key === "branches" &&
+                (sortConfig.direction === "asc" ? "↑" : "↓")}
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
