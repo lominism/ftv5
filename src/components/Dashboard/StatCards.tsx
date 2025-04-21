@@ -1,3 +1,6 @@
+// I made a new statcards component so this one is no longer needed but it's
+// the original so I'll keep it here for reference.
+
 import React from "react";
 import { FiTrendingDown, FiTrendingUp } from "react-icons/fi";
 

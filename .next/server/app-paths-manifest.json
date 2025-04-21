@@ -1,10 +1,5 @@
 {
-  "/branch/page": "app/branch/page.js",
-  "/company/page": "app/company/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/page": "app/page.js",
-  "/products/page": "app/products/page.js",
-  "/roles/page": "app/roles/page.js",
-  "/tasks/page": "app/tasks/page.js",
-  "/technicians/page": "app/technicians/page.js"
+  "/roles/page": "app/roles/page.js"
 }
