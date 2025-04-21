@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { FiUser } from "react-icons/fi";
+import { FiActivity } from "react-icons/fi";
 import {
   XAxis,
   YAxis,
@@ -15,47 +15,47 @@ import {
 const data = [
   {
     name: "Jan",
-    Returning: 275,
-    New: 41,
+    Completed: 12,
+    Rejected: 2,
   },
   {
     name: "Feb",
-    Returning: 620,
-    New: 96,
+    Completed: 27,
+    Rejected: 4,
   },
   {
     name: "Mar",
-    Returning: 202,
-    New: 192,
+    Completed: 9,
+    Rejected: 9,
   },
   {
     name: "Apr",
-    Returning: 500,
-    New: 50,
+    Completed: 24,
+    Rejected: 2,
   },
   {
     name: "May",
-    Returning: 355,
-    New: 400,
+    Completed: 17,
+    Rejected: 19,
   },
   {
     name: "Jun",
-    Returning: 875,
-    New: 200,
+    Completed: 33,
+    Rejected: 8,
   },
   {
     name: "Jul",
-    Returning: 700,
-    New: 205,
+    Completed: 26,
+    Rejected: 8,
   },
 ];
 
 export const ActivityGraph = () => {
   return (
     <div className="col-span-8 overflow-hidden rounded border border-stone-300">
-      <div className="p-4">
+      <div className="p-4 flex justify-center">
         <h3 className="flex items-center gap-1.5 font-medium">
-          <FiUser /> Activity
+          <FiActivity /> Tasks Ratio
         </h3>
       </div>
 
@@ -91,13 +91,13 @@ export const ActivityGraph = () => {
             />
             <Line
               type="monotone"
-              dataKey="New"
+              dataKey="Completed"
               stroke="#18181b"
               fill="#18181b"
             />
             <Line
               type="monotone"
-              dataKey="Returning"
+              dataKey="Rejected"
               stroke="#E53935"
               fill="#E53935"
             />

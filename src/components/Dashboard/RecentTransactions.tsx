@@ -1,3 +1,5 @@
+// This component is no longer used. I might delete it later.
+
 import React from "react";
 import { FiArrowUpRight, FiDollarSign, FiMoreHorizontal } from "react-icons/fi";
 
