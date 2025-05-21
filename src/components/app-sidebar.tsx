@@ -35,13 +35,13 @@ const data = {
   },
   teams: [
     {
-      name: "Magic Box Solutions",
-      logo: "/images/mbs-logo.png",
+      name: "Monkey King Corp.",
+      logo: "/images/monkey.jpg",
       plan: "Enterprise",
     },
     {
-      name: "Magic Box Digital",
-      logo: "/images/mbd-logo.png",
+      name: "Umbrella",
+      logo: "/images/umbrella-corp.png",
       plan: "Startup",
     },
     {
