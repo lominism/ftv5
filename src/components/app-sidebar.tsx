@@ -75,6 +75,10 @@ const data = {
           title: "Products",
           url: "/products",
         },
+        {
+          title: "Product Details Example",
+          url: "/product-details-example",
+        },
       ],
     },
     {
