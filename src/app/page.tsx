@@ -8,7 +8,7 @@ import { RecentTickets } from "@/components/Dashboard/RecentTickets";
 
 export default function Home() {
   return (
-    <div className="px-4 pt-4 grid gap-3 grid-cols-12">
+    <div className="px-4 pt-4 grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-12">
       <StatCards2 />
       <ActivityGraph />
       <TaskTypes />
